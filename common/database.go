@@ -16,19 +16,22 @@ func InitDB() *gorm.DB {
 	username := "root"
 	password := "zyq4836.."
 	timeout := "10s"
+	//loc := "Asia/Shanghai"
+
 	args := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local&timeout=%s",
 		username,
 		password,
 		host,
 		port,
 		Dbname,
-		timeout)
+		timeout,
+		//loc
+	)
 	db, err := gorm.Open(mysql.Open(args), &gorm.Config{})
 	if err != nil {
 		panic("err:" + err.Error())
 	}
 	db.AutoMigrate(&model.User{})
-	//db.Create(&User{Name: "tom", Password: "123456", Phone: "12345678911"})
 
 	DB = db
 	return db
